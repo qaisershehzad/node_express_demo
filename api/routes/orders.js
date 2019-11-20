@@ -8,8 +8,13 @@ router.get('/',(req,res,next)=>{
 });
 
 router.post('/',(req,res,next)=>{
-    res.status(200).json({
-        message:'Handling POST Orders'
+    const order = {
+        productId:req.body.productId,
+        quantity:req.body.quantity
+    };
+    res.status(201).json({
+        message:'Order created',
+        order:order
     })
 });
 
