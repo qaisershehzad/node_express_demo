@@ -3,9 +3,13 @@ const Joi = require('joi');
 const app = express();
 const morgan = require('morgan')
 const bodyParser = require('body-parser')
+const mongoose = require('mongoose');
+
 
 const productRoutes = require('./api/routes/products');
 const orderRoutes = require('./api/routes/orders');
+
+mongoose.connect('mongodb+srv://admin:' + process.env.MONGO_ATLAS_PW + '@node-rest-vgeul.mongodb.net/test?retryWrites=true&w=majority',{ useNewUrlParser: true, useUnifiedTopology: true  })
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: false}));
