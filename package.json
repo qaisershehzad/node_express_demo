@@ -15,7 +15,8 @@
     "express": "^4.17.1",
     "joi": "^14.3.1",
     "mongoose": "^5.7.12",
-    "morgan": "^1.9.1"
+    "morgan": "^1.9.1",
+    "prettier": "^1.19.1"
   },
   "devDependencies": {
     "nodemon": "^1.19.4"
