@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const mongoose = require('mongoose');
 const multer = require('multer');
 const checkAuth = require('../middleware/check-auth');
+
+const ProductsController = require('../controllers/products');
 
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
@@ -30,100 +31,23 @@ const upload = multer({
   fileFilter: fileFilter,
 });
 
-const Product = require('../models/product');
+router.get('/', ProductsController.products_get_all);
 
-router.get('/', (req, res, next) => {
-  Product.find()
-    .select('name price _id productImage')
-    .exec()
-    .then(docs => {
-      const response = {
-        count: docs.length,
-        products: docs.map(doc => {
-          return {
-            name: doc.name,
-            price: doc.price,
-            productImage: doc.productImage,
-            _id: doc._id,
-            request: {
-              type: 'GET',
-              url: 'http://localhost:3000/products/' + doc._id,
-            },
-          };
-        }),
-      };
-      res.status(200).json(response);
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({
-        error: err,
-      });
-    });
-});
+router.post(
+  '/',
+  checkAuth,
+  upload.single('productImage'),
+  ProductsController.products_create_product
+);
 
-router.post('/', checkAuth, upload.single('productImage'), (req, res, next) => {
-  const product = new Product({
-    _id: new mongoose.Types.ObjectId(),
-    name: req.body.name,
-    price: req.body.price,
-    productImage: req.file.path,
-  });
-  product
-    .save()
-    .then(result => {
-      console.log(result);
-      res.status(201).json({
-        message: 'Handling POST',
-        createdProduct: result,
-      });
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({
-        error: err,
-      });
-    });
-});
+router.get('/:productId', ProductsController.products_get_product);
 
-router.get('/:productId', (req, res, next) => {
-  const id = req.params.productId;
-  try {
-    Product.findById(id)
-      .select('name price _id productImage')
-      .exec()
-      .then(doc => {
-        console.log(doc);
-        if (doc) {
-          res.status(200).json({
-            message: 'Handling Get',
-            data: doc,
-          });
-        } else {
-          res.status(404).json({
-            message: 'No valid data',
-          });
-        }
-      })
-      .catch(err => {
-        console.log(err);
-        res.status(500).json({ error: err });
-      });
-  } catch (error) {
-    // your catch block code goes here
-    console.log(error);
-  }
-});
+router.patch(
+  '/:productId',
+  checkAuth,
+  ProductsController.products_update_product
+);
 
-router.patch('/:productId', checkAuth, (req, res, next) => {
-  res.status(200).json({
-    message: 'Patch Handling POST',
-  });
-});
+router.delete('/:productId', checkAuth, ProductsController.products_delete);
 
-router.delete('/:productId', checkAuth, (req, res, next) => {
-  res.status(200).json({
-    message: 'Delete request POST',
-  });
-});
 module.exports = router;
