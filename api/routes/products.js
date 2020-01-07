@@ -1,90 +1,53 @@
 const express = require('express');
-
 const router = express.Router();
+const multer = require('multer');
+const checkAuth = require('../middleware/check-auth');
 
-const mongoose = require('mongoose');
+const ProductsController = require('../controllers/products');
 
-const Product = require('../models/product');
-
-router.get('/', (req, res, next) => {
-  Product.find()
-    .select('name price _id')
-    .exec()
-    .then(docs => {
-      const response = {
-        count: docs.length,
-        products: docs,
-      };
-      res.status(200).json(response);
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({
-        error: err,
-      });
-    });
+const storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+    cb(null, './uploads/');
+  },
+  filename: function(req, file, cb) {
+    cb(null, new Date().toISOString() + file.originalname);
+  },
 });
 
-router.post('/', (req, res, next) => {
-  const product = new Product({
-    _id: new mongoose.Types.ObjectId(),
-    name: req.body.name,
-    price: req.body.price,
-  });
-  product
-    .save()
-    .then(result => {
-      console.log(result);
-      res.status(201).json({
-        message: 'Handling POST',
-        createdProduct: result,
-      });
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({
-        error: err,
-      });
-    });
-});
-
-router.get('/:productId', (req, res, next) => {
-  const id = req.params.productId;
-  try {
-    Product.findById(id)
-      .exec()
-      .then(doc => {
-        console.log(doc);
-        if (doc) {
-          res.status(200).json({
-            message: 'Handling Get',
-            data: doc,
-          });
-        } else {
-          res.status(404).json({
-            message: 'No valid data',
-          });
-        }
-      })
-      .catch(err => {
-        console.log(err);
-        res.status(500).json({ error: err });
-      });
-  } catch (error) {
-    // your catch block code goes here
-    console.log(error);
+const fileFilter = (req, file, cb) => {
+  // reject a file
+  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+    cb(null, true);
+  } else {
+    cb(null, false);
   }
+};
+
+const upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 1024 * 1024 * 5,
+  },
+  fileFilter: fileFilter,
 });
 
-router.patch('/:productId', (req, res, next) => {
-  res.status(200).json({
-    message: 'Patch Handling POST',
-  });
-});
+router.get('/', ProductsController.products_get_all);
 
-router.delete('/:productId', (req, res, next) => {
-  res.status(200).json({
-    message: 'Delete request POST',
-  });
-});
+router.post(
+  '/',
+  checkAuth,
+  upload.single('productImage'),
+  ProductsController.products_create_product
+);
+
+router.get('/:productId', ProductsController.products_get_product);
+
+router.patch(
+  '/:productId',
+  checkAuth,
+  ProductsController.products_update_product
+);
+
+router.delete('/:productId', checkAuth, ProductsController.products_delete);
+
 module.exports = router;
