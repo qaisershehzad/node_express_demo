@@ -1,6 +1,10 @@
-# node_demo
+# NODE EXPRESS Demo using Mongodb ATLAS with mongoose driver
+#### This demo is created using ACADEMIND tutorials and also added some more features on top of it.
+| Nodejs | Expressjs | Mongodb ATLAS | Mongoose | Swagger UI | Nodemon | Jsonwebtokens
 ## Version: 1.0
 
+### host: localhost:3000
+### basePath: /api/v1
 
 
 ### /orders
