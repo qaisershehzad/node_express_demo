@@ -1,0 +1,19 @@
+1- Use this to convert Postman collection json to Swagger supported YAML or JSON
+    https://www.apimatic.io/dashboard?modal=transform
+
+2- Converts Swagger json to pdf
+    https://www.swdoc.org/
+
+3- https://www.npmjs.com/package/swagger-ui-express
+    This module allows you to serve auto-generated swagger-ui generated API docs from express, based on a swagger.json file.
+
+4-  yamljs
+    To load your swagger specification yaml file you need to use a module able to convert yaml to json; for instance yamljs.
+
+5- https://github.com/expressjs/multer
+    Node.js middleware for handling `multipart/form-data`.
+
+6- https://www.npmjs.com/package/@hapi/joi
+    The most powerful schema description language and data validator for JavaScript.
+
+7- bcrypt is a password hashing function 

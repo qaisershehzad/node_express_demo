@@ -1,0 +1,375 @@
+swagger: '2.0'
+info:
+  version: '1.0'
+  title: node_demo
+  contact: {}
+host: localhost:3000
+basePath: /api/v1
+securityDefinitions: {}
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /orders:
+    get:
+      description: It will return all orders
+      summary: Get Orders
+      tags:
+        - Misc
+      operationId: GetOrders
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: Authorization
+          in: header
+          required: false
+          default: Bearer {token}
+          type: string
+      responses:
+        200:
+          description: ''
+          headers: {}
+    post:
+      description: Create new order
+      summary: /Orders
+      tags:
+        - Misc
+      operationId: /Orders
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: Authorization
+          in: header
+          required: false
+          default: Bearer {token}
+          type: string
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/~1OrdersRequest'
+      responses:
+        200:
+          description: ''
+          headers: {}
+  /products:
+    get:
+      description: return list of all products
+      summary: /Products
+      tags:
+        - Misc
+      operationId: /Products
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: Authorization
+          in: header
+          required: false
+          default: Bearer {token}
+          type: string
+      responses:
+        200:
+          description: ''
+          headers: {}
+    post:
+      description: Create new product
+      summary: /Products
+      tags:
+        - Misc
+      operationId: Post/Products
+      deprecated: false
+      produces:
+        - application/json
+      consumes:
+        - application/x-www-form-urlencoded
+      parameters:
+        - name: Authorization
+          in: header
+          required: false
+          default: Bearer {token}
+          type: string
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: name
+          in: formData
+          required: true
+          type: string
+          description: ''
+        - name: price
+          in: formData
+          required: true
+          type: number
+          format: double
+          description: ''
+        - name: productImage
+          in: formData
+          required: true
+          type: string
+          description: ''
+      responses:
+        200:
+          description: ''
+          headers: {}
+  /orders/5df780088887261da29f4d1f:
+    delete:
+      description: delete a order using order ID
+      summary: /Orders
+      tags:
+        - Misc
+      operationId: Delete/Orders
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: Authorization
+          in: header
+          required: false
+          default: Bearer {token}
+          type: string
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: ''
+      responses:
+        200:
+          description: ''
+          headers: {}
+  /products/5e0de8c3e921a20ef102ec03:
+    delete:
+      description: delete a product using Product ID
+      summary: /Products
+      tags:
+        - Misc
+      operationId: Delete/Products
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: Authorization
+          in: header
+          required: false
+          default: Bearer {token}
+          type: string
+      responses:
+        200:
+          description: ''
+          headers: {}
+  /orders/5df8b2ac059d19253f487ff1:
+    get:
+      description: Get single order using Order ID
+      summary: /Orders
+      tags:
+        - Misc
+      operationId: Get/Orders
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: Authorization
+          in: header
+          required: false
+          default: Bearer {token}
+          type: string
+      responses:
+        200:
+          description: ''
+          headers: {}
+  /products/5dd53790c376035c794cbf3d:
+    patch:
+      description: Patch existing product using Product ID
+      summary: /Products
+      tags:
+        - Misc
+      operationId: Patch/Products
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: Authorization
+          in: header
+          required: false
+          default: Bearer {token}
+          type: string
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            example:
+              - propName: name
+                value: Patch Name
+            type: array
+            items:
+              $ref: '#/definitions/~1ProductsRequest'
+      responses:
+        200:
+          description: ''
+          headers: {}
+  /user/signup:
+    post:
+      description: New user signup
+      summary: /Signup
+      tags:
+        - Misc
+      operationId: /Signup
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: Authorization
+          in: header
+          required: false
+          default: Bearer {token}
+          type: string
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/~1SignupRequest'
+      responses:
+        200:
+          description: ''
+          headers: {}
+  /user/login:
+    post:
+      description: login user using email and password
+      summary: /Login
+      tags:
+        - Misc
+      operationId: /Login
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: Authorization
+          in: header
+          required: false
+          default: Bearer {token}
+          type: string
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/~1LoginRequest'
+      responses:
+        200:
+          description: ''
+          headers: {}
+  /user/5e14877c87a2ef118f3530f3:
+    delete:
+      description: delete user using User ID
+      summary: /Login
+      tags:
+        - Misc
+      operationId: Delete/Login
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: Authorization
+          in: header
+          required: false
+          default: Bearer {token}
+          type: string
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: ''
+      responses:
+        200:
+          description: ''
+          headers: {}
+definitions:
+  /OrdersRequest:
+    title: /OrdersRequest
+    example:
+      productId: 5dd5351a328f595c4e543692
+      quantity: 3
+    type: object
+    properties:
+      productId:
+        type: string
+      quantity:
+        type: string
+    required:
+      - productId
+      - quantity
+  /ProductsRequest:
+    title: /ProductsRequest
+    example:
+      propName: name
+      value: Patch Name
+    type: object
+    properties:
+      propName:
+        type: string
+      value:
+        type: string
+    required:
+      - propName
+      - value
+  /SignupRequest:
+    title: /SignupRequest
+    example:
+      email: user@g.com
+      password: testerwe
+    type: object
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    required:
+      - email
+      - password
+  /LoginRequest:
+    title: /LoginRequest
+    example:
+      email: test@g.com
+      password: testerwe
+    type: object
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    required:
+      - email
+      - password
+tags:
+  - name: Misc
+    description: ''
