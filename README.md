@@ -1,4 +1,5 @@
-# NODE EXPRESS Demo using Mongodb ATLAS with mongoose driver
+# NODE EXPRESS Demo 
+## using Mongodb ATLAS with mongoose driver and swagger api documentation support
 #### This demo is created using ACADEMIND tutorials and also added some more features on top of it.
 | Nodejs | Expressjs | Mongodb ATLAS | Mongoose | Swagger UI | Nodemon | Jsonwebtokens
 ## Version: 1.0
@@ -45,7 +46,12 @@ Create new order
 | ---- | ---------- | ----------- | -------- | ---- |
 | Authorization | header |  | No | string |
 | Content-Type | header |  | Yes | string |
-| Body | body |  | Yes | [~1OrdersRequest](#~1ordersrequest) |
+| Body | body |  | Yes | valid json
+
+| Name | Type | Description | Required |
+| ---- | ---- | ----------- | -------- |
+| productId | string |  | Yes |
+| quantity | string |  | Yes |
 
 ##### Responses
 
@@ -188,7 +194,12 @@ Patch existing product using Product ID
 | ---- | ---------- | ----------- | -------- | ---- |
 | Authorization | header |  | No | string |
 | Content-Type | header |  | Yes | string |
-| Body | body |  | Yes | [ [~1ProductsRequest](#~1productsrequest) ] |
+| Body | body |  | Yes | json array of objects
+
+| Name | Type | Description | Required |
+| ---- | ---- | ----------- | -------- |
+| propName | string |  | Yes |
+| value | string |  | Yes |
 
 ##### Responses
 
@@ -213,7 +224,13 @@ New user signup
 | ---- | ---------- | ----------- | -------- | ---- |
 | Authorization | header |  | No | string |
 | Content-Type | header |  | Yes | string |
-| Body | body |  | Yes | [~1SignupRequest](#~1signuprequest) |
+| Body | body |  | Yes | valid json object
+
+| Name | Type | Description | Required |
+| ---- | ---- | ----------- | -------- |
+| email | string |  | Yes |
+| password | string |  | Yes |
+
 
 ##### Responses
 
@@ -238,7 +255,12 @@ login user using email and password
 | ---- | ---------- | ----------- | -------- | ---- |
 | Authorization | header |  | No | string |
 | Content-Type | header |  | Yes | string |
-| Body | body |  | Yes | [~1LoginRequest](#~1loginrequest) |
+| Body | body |  | Yes | valid json object
+
+| Name | Type | Description | Required |
+| ---- | ---- | ----------- | -------- |
+| email | string |  | Yes |
+| password | string |  | Yes |
 
 ##### Responses
 
